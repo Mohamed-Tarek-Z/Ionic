@@ -1,0 +1,7 @@
+{
+  "name": "conFusion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
