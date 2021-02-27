@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'contact',
     loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
+  },
+  {
+    path: 'menu/dishdetail/:id',
+    loadChildren: () => import('./dishdetail/dishdetail.module').then( m => m.DishdetailPageModule)
   }
 ];
 

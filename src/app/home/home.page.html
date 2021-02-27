@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-card *ngIf="dish">
     <ion-col col-2></ion-col>
     <img src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
@@ -18,7 +18,7 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{dish.description}}
+      <ion-card-subtitle>{{dish.description}}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
   <div [hidden]="dish || errMess">
@@ -39,7 +39,7 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{promotion.description}}
+      <ion-card-subtitle>{{promotion.description}}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
   <div [hidden]="promotion || errMess">
@@ -60,7 +60,7 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{leader.description}}
+      <ion-card-subtitle>{{leader.description}}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
   <div [hidden]="leader || errMess">

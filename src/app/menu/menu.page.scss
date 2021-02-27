@@ -1,0 +1,17 @@
+ion-card {
+    position: relative;
+    text-align: center;
+    img {
+        width: fill;
+    }
+    ion-card-title {
+        position: absolute;
+        top: 30%;
+        width: 100%;
+    }
+    ion-card-subtitle {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+    }
+}
