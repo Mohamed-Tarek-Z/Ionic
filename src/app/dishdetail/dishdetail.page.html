@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card *ngIf="dish">
-    <img src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
+    <img size="large" src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
     <ion-card-header>
       <ion-card-subtitle>Dish of the Week</ion-card-subtitle>
       <ion-card-title>
@@ -45,9 +45,23 @@
   <ion-list *ngIf="dish">
     <ion-list-header>Comments</ion-list-header>
     <ion-item *ngFor="let comment of dish.comments">
-      <ion-row><h4> {{comment.comment}}</h4></ion-row>
-      <ion-row><p> {{comment.rating}} Stars</p></ion-row>
-      <ion-row><p><span> -- {{comment.author}} {{comment.date | date}} </span></p></ion-row>
+      <ion-label>
+        <h4>{{comment.comment}}</h4>
+        <p>{{comment.rating}} Stars</p>
+        <p><span>-- {{comment.author}} {{comment.date | date}} </span></p>
+      </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-fab *ngIf="fav && dish" horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button size="small" color="danger">
+      <ion-icon name="heart"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab *ngIf="!fav && dish" horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="addTofav(dish.id)" size="small" color="dark">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

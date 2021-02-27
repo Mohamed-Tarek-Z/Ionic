@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="dishes" >
+  <div *ngIf="dishes">
     <ion-card *ngFor="let dish of dishes" [routerLink]="['dishdetail',dish.id]"  routerDirection="forward">
       <img src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
         <ion-card-title>
