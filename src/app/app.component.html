@@ -10,6 +10,12 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item>
+            <ion-button color="secondary" (click)="presentModal()">
+              <ion-icon name="restaurant-sharp" slot="start"></ion-icon>
+              Reserve Table
+            </ion-button>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
