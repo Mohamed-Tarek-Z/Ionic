@@ -27,9 +27,7 @@ export class ReservationPage implements OnInit {
     });
   }
 
-
   onSubmit(): void {
-    console.log(this.reserve.value);
     this.dismiss();
   }
 

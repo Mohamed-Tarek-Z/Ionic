@@ -28,7 +28,6 @@ export class FavService {
       this.favs.splice(index, 1);
       return this.getFavs();
     }else {
-      console.log('a7a btms7 ah !');
       return throwError('a7a btms7 ah !');
     }
   }
@@ -38,7 +37,6 @@ export class FavService {
   }
 
   getFavs():Observable<Dish[]> {
-    console.log("getfavs");
     return this.dishService.getDishes().pipe(map( dishes => dishes.filter(dish => this.favs.some(el => el === dish.id))));
   }
 }

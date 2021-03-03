@@ -4,7 +4,9 @@ import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish/dish.service';
 import { FavService } from '../services/fav/fav.service';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, ActionSheetController, ModalController } from '@ionic/angular';
+import { CommentPage } from '../comment/comment.page';
+
 
 @Component({
   selector: 'app-dishdetail',
@@ -24,7 +26,9 @@ export class DishdetailPage implements OnInit {
               private dishService: DishService,
               private favService: FavService,
               private loading: LoadingController,
+              private action: ActionSheetController,
               private tost: ToastController,
+              private modalCtrl: ModalController,
               @Inject('BaseURL') public BaseURL:string,
               @Inject('ext') public ext:string) {}
 
@@ -40,19 +44,19 @@ export class DishdetailPage implements OnInit {
     }, errmess => this.errMess = <any>errmess);
   }
 
-  async addTofav(id:string) {
+  async addTofav() {
     let tos = await this.tost.create({
       message: 'Dish ' + this.dish.id + ' Added To Favs',
       position: 'middle',
       duration: 2000
     });
-    this.fav = this.favService.addFav(id);
+    this.fav = this.favService.addFav(this.dish.id);
     await tos.present();
   }
 
-  async deletfav(id:string) {
+  async deletfav() {
     let tos = await this.tost.create({
-      message: 'Dish ' + id + ' Removed From Favs',
+      message: 'Dish ' + this.dish.id + ' Removed From Favs',
       position: 'middle',
       duration: 2000
     });
@@ -60,6 +64,44 @@ export class DishdetailPage implements OnInit {
       message: 'Deleting . . . . '
     });
     await lod.present();
-    this.favService.rmFav(id).subscribe(favs => {this.fav = this.favService.isFav(id); lod.dismiss(); tos.present();}, errMess => {this.errMess = errMess;lod.dismiss();});
+    this.favService.rmFav(this.dish.id).subscribe(favs => {this.fav = this.favService.isFav(this.dish.id); lod.dismiss(); tos.present();}, errMess => {this.errMess = errMess;lod.dismiss();});
+  }
+  
+  async MoreClick() {
+    let acti =  await this.action.create({
+      header: 'Select action',
+      buttons: [{
+        text: 'Add To Favorite',
+        icon: 'heart',
+        handler: () => {
+          this.addTofav();
+        }
+      },{
+        text: 'Remove From Favorite',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.deletfav();
+        }
+      }, {
+        text: 'Add Comment',
+        icon: 'pricetags',
+        handler: async () => {
+          (await this.modalCtrl.create({
+            component: CommentPage,
+            swipeToClose: true,
+            componentProps: {'dish': this.dish},
+            presentingElement: await this.modalCtrl.getTop()
+          })).present();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+        }
+      }]
+    });
+    await acti.present();
   }
 }

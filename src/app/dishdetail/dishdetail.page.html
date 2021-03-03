@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>dishdetail</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="MoreClick()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -54,12 +59,12 @@
   </ion-list>
 
   <ion-fab *ngIf="fav && dish" horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button (click)="deletfav(dish.id)" size="small" color="danger">
+    <ion-fab-button (click)="deletfav()" size="small" color="danger">
       <ion-icon name="heart"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-fab *ngIf="!fav && dish" horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button (click)="addTofav(dish.id)" size="small" color="dark">
+    <ion-fab-button (click)="addTofav()" size="small" color="dark">
       <ion-icon name="heart-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
