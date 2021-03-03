@@ -7,17 +7,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
   <div *ngIf="dishes">
     <ion-card *ngFor="let dish of dishes">
-      <ion-item-sliding>
+      <ion-item-sliding #item>
         <ion-item [routerLink]="['dishdetail',dish.id]"  routerDirection="forward">
           <img src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
           <ion-card-title color="dark">{{dish.name | uppercase}}</ion-card-title>
           <ion-card-subtitle color="dark">{{dish.description}}</ion-card-subtitle>
         </ion-item>
         <ion-item-options side="start">
-          <ion-item-option color="primary" (click)="addTofav(dish.id)">
+          <ion-item-option color="primary" (click)="addTofav( item ,dish.id)">
             <ion-icon slot="icon-only" name="heart"></ion-icon>
           </ion-item-option>
         </ion-item-options>

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
   <ion-card *ngIf="dish">
     <img size="large" src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
     <ion-card-header>
@@ -54,7 +54,7 @@
   </ion-list>
 
   <ion-fab *ngIf="fav && dish" horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button size="small" color="danger">
+    <ion-fab-button (click)="deletfav(dish.id)" size="small" color="danger">
       <ion-icon name="heart"></ion-icon>
     </ion-fab-button>
   </ion-fab>

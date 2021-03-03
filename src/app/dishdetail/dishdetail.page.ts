@@ -4,6 +4,7 @@ import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish/dish.service';
 import { FavService } from '../services/fav/fav.service';
+import { ToastController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dishdetail',
@@ -22,6 +23,8 @@ export class DishdetailPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private dishService: DishService,
               private favService: FavService,
+              private loading: LoadingController,
+              private tost: ToastController,
               @Inject('BaseURL') public BaseURL:string,
               @Inject('ext') public ext:string) {}
 
@@ -37,7 +40,26 @@ export class DishdetailPage implements OnInit {
     }, errmess => this.errMess = <any>errmess);
   }
 
-  addTofav(id:string) {
+  async addTofav(id:string) {
+    let tos = await this.tost.create({
+      message: 'Dish ' + this.dish.id + ' Added To Favs',
+      position: 'middle',
+      duration: 2000
+    });
     this.fav = this.favService.addFav(id);
+    await tos.present();
+  }
+
+  async deletfav(id:string) {
+    let tos = await this.tost.create({
+      message: 'Dish ' + id + ' Removed From Favs',
+      position: 'middle',
+      duration: 2000
+    });
+    let lod = await this.loading.create({
+      message: 'Deleting . . . . '
+    });
+    await lod.present();
+    this.favService.rmFav(id).subscribe(favs => {this.fav = this.favService.isFav(id); lod.dismiss(); tos.present();}, errMess => {this.errMess = errMess;lod.dismiss();});
   }
 }
