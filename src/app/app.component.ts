@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ReservationPage } from './reservation/reservation.page';
 
@@ -15,7 +15,7 @@ export class AppComponent {
     { title: 'About US', url: '/about', icon: 'information-circle' },
     { title: 'Contact US', url: '/contact', icon: 'call' }
   ];
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, @Inject('BaseURL') public BaseURL:string) {}
 
   async presentModal() {
     const modal = await this.modalCtrl.create({
