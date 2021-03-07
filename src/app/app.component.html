@@ -11,18 +11,20 @@
               <ion-label text-wrap>Ristorante Con Fusion</ion-label>
           </ion-item>
           </ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item *ngFor="let p of appPages; let i = index" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
+            <ion-item lines="none" detail="false" button="true" routerLinkActive="selected" (click)="presentReserve()">
+                <ion-icon name="restaurant-sharp" slot="start"></ion-icon>
+                <ion-label>Reserve Table</ion-label>
+            </ion-item>
+            <ion-item lines="none" detail="false" button="true" routerLinkActive="selected" (click)="presentLogin()">
+                <ion-icon name="log-in-outline" slot="start"></ion-icon>
+                <ion-label>Log in</ion-label>
+            </ion-item>
           </ion-menu-toggle>
-          <ion-item>
-            <ion-button color="secondary" (click)="presentModal()">
-              <ion-icon name="restaurant-sharp" slot="start"></ion-icon>
-              Reserve Table
-            </ion-button>
-          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

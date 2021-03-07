@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { IonicStorageModule } from '@ionic/storage'; 
 
 import { HttpClientModule } from '@angular/common/http';
 import { BaseURL, ext } from './shared/baseurl';
@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
             HttpClientModule,
             FormsModule,
-            ReactiveFormsModule],
+            ReactiveFormsModule, IonicStorageModule.forRoot()],
 
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: 'BaseURL', useValue: BaseURL },

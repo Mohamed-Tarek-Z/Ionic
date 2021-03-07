@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <form [formGroup]="LogForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-item color="dark">
+          <ion-label position="floating">User Name</ion-label>
+          <ion-input required clear-input="true" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-col size=1></ion-col>
+        <ion-item color="dark">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input required type="password" clear-input="true" formControlName="password"></ion-input>
+        </ion-item>
+    </ion-row>
+  </ion-grid>
+  <ion-item>
+    <ion-label>Remember me.</ion-label>
+    <ion-checkbox checked="true" slot="start" formControlName="remember"></ion-checkbox>
+  </ion-item>
+  <ion-button color="primary" type="submit" [disabled]="LogForm.invalid">Log IN</ion-button>
+  </form>
+
+</ion-content>

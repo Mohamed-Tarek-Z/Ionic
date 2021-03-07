@@ -32,12 +32,17 @@ const routes: Routes = [
     loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
   {
-    path: 'menu/dishdetail/:id/reservation',
+    path: 'reservation',
     loadChildren: () => import('./reservation/reservation.module').then( m => m.ReservationPageModule)
   },
   {
-    path: 'comment',
-    loadChildren: () => import('./comment/comment.module').then( m => m.CommentPageModule)
+    path: 'menu/dishdetail/:id/comment',
+    loadChildren: () => import('./comment/comment.module').then( m => m.CommentPageModule),
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   }
 ];
 

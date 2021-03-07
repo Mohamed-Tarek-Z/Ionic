@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ReservationPage } from './reservation/reservation.page';
+import { LoginPage } from './login/login.page';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,18 @@ export class AppComponent {
   ];
   constructor(private modalCtrl: ModalController, @Inject('BaseURL') public BaseURL:string) {}
 
-  async presentModal() {
+  async presentReserve() {
     const modal = await this.modalCtrl.create({
       component: ReservationPage,
+      swipeToClose: true,
+      presentingElement: await this.modalCtrl.getTop()
+    });
+    return await modal.present();
+  }
+
+  async presentLogin() {
+    const modal = await this.modalCtrl.create({
+      component: LoginPage,
       swipeToClose: true,
       presentingElement: await this.modalCtrl.getTop()
     });

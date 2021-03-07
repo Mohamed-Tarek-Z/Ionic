@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
@@ -21,7 +21,7 @@ export class DishdetailPage implements OnInit {
   avgstars: string;
   numcomments: number;
   fav: boolean = false;
-
+  @ViewChild('id') private id: any;
   constructor(private activatedRoute: ActivatedRoute,
               private dishService: DishService,
               private favService: FavService,
@@ -104,4 +104,5 @@ export class DishdetailPage implements OnInit {
     });
     await acti.present();
   }
+
 }
