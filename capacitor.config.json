@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "conFusion",
+  "appId": "com.Doom.app",
+  "appName": "Doom",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

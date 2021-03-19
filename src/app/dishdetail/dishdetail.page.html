@@ -13,58 +13,65 @@
 </ion-header>
 
 <ion-content color="light">
-  <ion-card *ngIf="dish">
-    <ion-card-header>
-      <ion-grid>
-      <ion-row>
-        <ion-col size="0" size-lg="4"></ion-col>
-        <ion-col size="12" size-lg="5"> 
-          <img size="large" src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-      <ion-card-subtitle>Dish of the Week</ion-card-subtitle>
-      <ion-card-title>
-        {{dish.name | uppercase}}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{dish.description}}</p>
-      <ion-row >
-        <ion-col>
-          <ion-button color="medium" fill="clear" size="small">
-            <ion-icon slot="start" name="star-outline"></ion-icon>
-            <div>{{ avgstars }}  stars</div>
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button
-           color="medium" fill="clear" size="small">
-            <ion-icon slot="start" name="pricetags-outline"></ion-icon>
-            <div> {{ numcomments }}  Comments</div>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-  <div [hidden]="dish || errMess">
-    <ion-spinner name="dots"></ion-spinner><h4> Loading . . . .</h4>
-  </div>
-  <div *ngIf="errMess && !dish">
-    <h2>Error</h2>
-    <h4> {{errMess}} </h4>
-  </div>
-
-  <ion-list *ngIf="dish">
-    <ion-list-header>Comments</ion-list-header>
-    <ion-item *ngFor="let comment of dish.comments">
-      <ion-label>
-        <h4>{{comment.comment}}</h4>
-        <p>{{comment.rating}} Stars</p>
-        <p><span>-- {{comment.author}} {{comment.date | date}} </span></p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="6">
+        <ion-card *ngIf="dish">
+          <ion-card-header>
+            <ion-grid>
+            <ion-row>
+              <ion-col size="0" size-lg="4"></ion-col>
+              <ion-col size="12" size-lg="5"> 
+                <img size="large" src="{{BaseURL + dish.image + ext}}" alt={{dish.name}}/>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+            <ion-card-subtitle>Dish of the Week</ion-card-subtitle>
+            <ion-card-title>
+              {{dish.name | uppercase}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{dish.description}}</p>
+            <ion-row >
+              <ion-col>
+                <ion-button color="medium" fill="clear" size="small">
+                  <ion-icon slot="start" name="star-outline"></ion-icon>
+                  <div>{{ avgstars }}  stars</div>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button
+                color="medium" fill="clear" size="small">
+                  <ion-icon slot="start" name="pricetags-outline"></ion-icon>
+                  <div> {{ numcomments }}  Comments</div>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+        <div [hidden]="dish || errMess">
+          <ion-spinner name="dots"></ion-spinner><h4> Loading . . . .</h4>
+        </div>
+        <div *ngIf="errMess && !dish">
+          <h2>Error</h2>
+          <h4> {{errMess}} </h4>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-lg="6">
+        <ion-list *ngIf="dish">
+          <ion-list-header>Comments</ion-list-header>
+          <ion-item *ngFor="let comment of dish.comments">
+            <ion-label>
+              <h4>{{comment.comment}}</h4>
+              <p>{{comment.rating}} Stars</p>
+              <p><span>-- {{comment.author}} {{comment.date | date}} </span></p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-fab *ngIf="fav && dish" horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button (click)="deletfav()" size="small" color="danger">
