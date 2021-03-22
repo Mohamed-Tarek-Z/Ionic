@@ -26,12 +26,10 @@ export class HomePage implements OnInit {
               @Inject('BaseURL') public BaseURL:string,
               @Inject('ext') public ext:string) { }
   tit: string;
-  ngOnInit() {
+  async ngOnInit() {
     this.tit = this.activatedRoute.snapshot.paramMap.get('id');
     this.dishService.getFeaturedDish().subscribe((dish) => this.dish = dish, errmess => this.errMess = errmess);
     this.promotionService.getFeaturedPromotion().subscribe((promotion) => this.promotion = promotion, errmess => this.errMess = errmess);
     this.leaderService.getFeaturedLeader().subscribe((leader) => this.leader = leader, errmess => this.errMess = errmess);
-  
   }
-
 }

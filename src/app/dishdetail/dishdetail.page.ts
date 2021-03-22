@@ -6,7 +6,7 @@ import { DishService } from '../services/dish/dish.service';
 import { FavService } from '../services/fav/fav.service';
 import { ToastController, LoadingController, ActionSheetController, ModalController } from '@ionic/angular';
 import { CommentPage } from '../comment/comment.page';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-dishdetail',
@@ -23,25 +23,26 @@ export class DishdetailPage implements OnInit {
   fav: boolean = false;
   @ViewChild('id') private id: any;
   constructor(private activatedRoute: ActivatedRoute,
-              private dishService: DishService,
-              private favService: FavService,
-              private loading: LoadingController,
-              private action: ActionSheetController,
-              private tost: ToastController,
-              private modalCtrl: ModalController,
-              @Inject('BaseURL') public BaseURL:string,
-              @Inject('ext') public ext:string) {}
+    private dishService: DishService,
+    private favService: FavService,
+    private loading: LoadingController,
+    private action: ActionSheetController,
+    private tost: ToastController,
+    private modalCtrl: ModalController,
+    @Inject('BaseURL') public BaseURL: string,
+    @Inject('ext') public ext: string,
+    private socialSharing: SocialSharing) { }
 
   ngOnInit() {
     this.dishService.getDish(this.activatedRoute.snapshot.params["id"])
-    .subscribe((dish) =>  {
-      this.dish = dish;
-      this.fav = this.favService.isFav(this.dish.id);
-      this.numcomments = this.dish?.comments?.length;
-      let total = 0;
-      this.dish.comments.forEach(comment => total += comment.rating);
-      this.avgstars = (total/this.numcomments).toFixed(2);
-    }, errmess => this.errMess = <any>errmess);
+      .subscribe((dish) => {
+        this.dish = dish;
+        this.fav = this.favService.isFav(this.dish.id);
+        this.numcomments = this.dish?.comments?.length;
+        let total = 0;
+        this.dish.comments.forEach(comment => total += comment.rating);
+        this.avgstars = (total / this.numcomments).toFixed(2);
+      }, errmess => this.errMess = <any>errmess);
   }
 
   async addTofav() {
@@ -64,11 +65,11 @@ export class DishdetailPage implements OnInit {
       message: 'Deleting . . . . '
     });
     await lod.present();
-    this.favService.rmFav(this.dish.id).subscribe(favs => {this.fav = this.favService.isFav(this.dish.id); lod.dismiss(); tos.present();}, errMess => {this.errMess = errMess;lod.dismiss();});
+    this.favService.rmFav(this.dish.id).subscribe(favs => { this.fav = this.favService.isFav(this.dish.id); lod.dismiss(); tos.present(); }, errMess => { this.errMess = errMess; lod.dismiss(); });
   }
-  
+
   async MoreClick() {
-    let acti =  await this.action.create({
+    let acti = await this.action.create({
       header: 'Select action',
       buttons: [{
         text: 'Add To Favorite',
@@ -76,7 +77,7 @@ export class DishdetailPage implements OnInit {
         handler: () => {
           this.addTofav();
         }
-      },{
+      }, {
         text: 'Remove From Favorite',
         role: 'destructive',
         icon: 'trash',
@@ -90,9 +91,27 @@ export class DishdetailPage implements OnInit {
           (await this.modalCtrl.create({
             component: CommentPage,
             swipeToClose: true,
-            componentProps: {'dish': this.dish},
+            componentProps: { 'dish': this.dish },
             presentingElement: await this.modalCtrl.getTop()
           })).present();
+        }
+      }, {
+        text: 'Share via Facebook',
+        icon: 'logo-facebook',
+        handler: () => {
+          this.socialSharing.shareViaFacebook(
+            this.dish.name + ' -- ' + this.dish.description,
+            this.BaseURL + this.dish.image+this.ext, ''
+          ).then( ()=> console.log('Posted face')).catch( ()=> console.log('faild to fac'));
+        }
+      }, {
+        text: 'Share via Twitter',
+        icon: 'logo-twitter',
+        handler: () => {
+          this.socialSharing.shareViaTwitter(
+            this.dish.name + ' -- ' + this.dish.description,
+            this.BaseURL + this.dish.image+this.ext, ''
+          ).then( ()=> console.log('Posted twit')).catch( ()=> console.log('faild to twit'));
         }
       }, {
         text: 'Cancel',
