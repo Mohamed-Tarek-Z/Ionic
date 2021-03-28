@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController,  } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { User } from '../shared/user';
+import { RegisterPage } from '../register/register.page';
 
 @Component({
   selector: 'app-login',
@@ -48,6 +49,16 @@ export class LoginPage implements OnInit {
       this.storage.remove('user');
     
     this.dismiss();
+  }
+
+  async OpenReg() {
+    const modal = await this.modalCtrl.create({
+      component: RegisterPage,
+      swipeToClose: true,
+      presentingElement: await this.modalCtrl.getTop()
+    });
+    modal.onDidDismiss().then(()=>this.dismiss());
+    return await modal.present();
   }
 
 }

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Register Now</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card>
+    <ion-card-header color="primary">Your Picture</ion-card-header>
+    <img src="{{image}}"/>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button size="small" (click)="getPict()">Take Picture</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-item color="dark">
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input required type="text" clear-input="true" formControlName="firstname"></ion-input>
+        </ion-item>
+        <ion-col size=1></ion-col>
+        <ion-item color="dark">
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input required type="text" clear-input="true" formControlName="lastname"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item color="dark">
+          <ion-label position="floating">User Name</ion-label>
+          <ion-input required type="text" clear-input="true" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-col size=1></ion-col>
+        <ion-item color="dark">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input required type="password" clear-input="true" formControlName="password"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item color="dark">
+          <ion-label position="floating">tel. num</ion-label>
+          <ion-input  required type="tel" inputmode="tel" clear-input="true" formControlName="telnum" pattern="tel"></ion-input>
+        </ion-item>
+        <ion-col size=1></ion-col>
+        <ion-item color="dark">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input required type="email" inputmode="email" clear-input="true" formControlName="email"  pattern="email"></ion-input>
+        </ion-item>
+    </ion-row>
+  </ion-grid>
+  <ion-button color="primary" type="submit" [disabled]="regForm.invalid">Register Now</ion-button>
+  </form>
+</ion-content>
